@@ -1,0 +1,63 @@
+services:
+  - type: web
+    name: techpulse-api
+    runtime: node
+    rootDir: backend
+    buildCommand: npm ci
+    startCommand: npm start
+    healthCheckPath: /api/health
+    envVars:
+      - key: NODE_ENV
+        value: production
+      - key: TZ
+        value: Asia/Kolkata
+      - key: ENABLE_SCHEDULER
+        value: "false"
+      - key: FRONTEND_URL
+        sync: false
+      - key: SUPABASE_URL
+        sync: false
+      - key: SUPABASE_SERVICE_ROLE_KEY
+        sync: false
+      - key: CREDENTIALS_ENCRYPTION_KEY
+        generateValue: true
+      - key: VAPID_PUBLIC_KEY
+        sync: false
+      - key: VAPID_PRIVATE_KEY
+        sync: false
+      - key: VAPID_SUBJECT
+        value: mailto:admin@techpulse.app
+      - key: TELEGRAM_BOT_TOKEN
+        sync: false
+      - key: CRON_SECRET
+        generateValue: true
+
+  - type: worker
+    name: techpulse-scheduler-worker
+    runtime: node
+    rootDir: backend
+    buildCommand: npm ci
+    startCommand: npm run worker
+    envVars:
+      - key: NODE_ENV
+        value: production
+      - key: TZ
+        value: Asia/Kolkata
+      - key: ENABLE_SCHEDULER
+        value: "true"
+      - key: INGEST_ON_BOOT
+        value: "true"
+      - key: SUPABASE_URL
+        sync: false
+      - key: SUPABASE_SERVICE_ROLE_KEY
+        sync: false
+      - key: CREDENTIALS_ENCRYPTION_KEY
+        sync: false
+      - key: VAPID_PUBLIC_KEY
+        sync: false
+      - key: VAPID_PRIVATE_KEY
+        sync: false
+      - key: VAPID_SUBJECT
+        value: mailto:admin@techpulse.app
+      - key: TELEGRAM_BOT_TOKEN
+        sync: false

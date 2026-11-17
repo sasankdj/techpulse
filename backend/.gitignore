@@ -1,0 +1,72 @@
+
+# Dependencies
+node_modules/
+**/node_modules/
+
+# Environment variables and secrets
+.env
+.env.*
+!.env.example
+!.env.*.example
+
+# Build outputs
+dist/
+build/
+**/dist/
+**/build/
+
+# Logs
+logs/
+*.log
+npm-debug.log*
+yarn-debug.log*
+pnpm-debug.log*
+
+# Runtime files
+*.pid
+*.seed
+*.pid.lock
+
+# Coverage and test output
+coverage/
+.nyc_output/
+
+# Vite
+.vite/
+
+# Supabase local state
+.supabase/
+# Keep Supabase migrations and configuration tracked
+!supabase/config.toml
+!supabase/migrations/
+
+# IDE and editor
+.vscode/*
+!.vscode/extensions.json
+.idea/
+*.swp
+*.swo
+
+# OS files
+.DS_Store
+Thumbs.db
+Desktop.ini
+
+# Temporary files
+tmp/
+temp/
+.cache/
+
+# Deployment
+.vercel/
+.netlify/
+
+# Private keys and certificates
+*.pem
+*.key
+*.crt
+
+# Optional local database files
+*.sqlite
+*.sqlite3
+*.db

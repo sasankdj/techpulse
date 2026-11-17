@@ -1,0 +1,17 @@
+{
+  "name": "TechPulse — Tech Intelligence & Productivity",
+  "short_name": "TechPulse",
+  "description": "Personal technology news intelligence, task manager, and scheduled reminder platform.",
+  "start_url": "/",
+  "display": "standalone",
+  "background_color": "#09090b",
+  "theme_color": "#09090b",
+  "icons": [
+    {
+      "src": "/favicon.svg",
+      "sizes": "any",
+      "type": "image/svg+xml",
+      "purpose": "any maskable"
+    }
+  ]
+}

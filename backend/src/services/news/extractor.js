@@ -78,16 +78,48 @@ function isValidImageUrl(url) {
 /**
  * Builds a clean, bounded excerpt from RSS description / content.
  */
-export function buildExcerpt(item, maxLength = 340) {
-  const raw =
-    item.contentSnippet ||
-    stripHtml(item.summary || item.description || item['content:encoded'] || item.content || '');
+// export function buildExcerpt(item, maxLength = 340) {
+//   const raw =
+//     item.contentSnippet ||
+//     stripHtml(item.summary || item.description || item['content:encoded'] || item.content || '');
+
+//   const cleaned = raw.replace(/\s+/g, ' ').trim();
+//   if (!cleaned) return '';
+//   if (cleaned.length <= maxLength) return cleaned;
+
+//   const truncated = cleaned.slice(0, maxLength);
+//   const lastSpace = truncated.lastIndexOf(' ');
+//   return `${truncated.slice(0, lastSpace > 120 ? lastSpace : maxLength).trim()}…`;
+// }
+
+
+export function buildExcerpt(item, maxLength = 6000) {
+  // Prefer fuller RSS content over the often-short contentSnippet.
+  const candidates = [
+    item['content:encoded'],
+    item.content,
+    item.summary,
+    item.description,
+    item.contentSnippet,
+  ];
+
+  let raw = '';
+
+  for (const candidate of candidates) {
+    if (typeof candidate === 'string' && candidate.trim()) {
+      raw = stripHtml(candidate);
+      if (raw.length > 0) break;
+    }
+  }
 
   const cleaned = raw.replace(/\s+/g, ' ').trim();
+
   if (!cleaned) return '';
   if (cleaned.length <= maxLength) return cleaned;
 
   const truncated = cleaned.slice(0, maxLength);
   const lastSpace = truncated.lastIndexOf(' ');
-  return `${truncated.slice(0, lastSpace > 120 ? lastSpace : maxLength).trim()}…`;
+
+  return `${truncated.slice(0, lastSpace > 100 ? lastSpace : maxLength).trim()}…`;
 }
+

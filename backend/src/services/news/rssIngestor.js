@@ -47,11 +47,11 @@ export async function parseFeedItems(source, { parser = createRssParser(), xmlSt
     const title = (item.title || '').replace(/\s+/g, ' ').trim();
     if (!title || title.length < 4) continue;
 
-    const rawExcerpt = buildExcerpt(item, 500);
+    const rawExcerpt = buildExcerpt(item, 6000);
     const summaryResult = await generateArticleSummary({
       title,
       text: rawExcerpt,
-      useOllama: false,
+      useOllama: true,
     });
 
     const publishedDate = parsePublishedDate(item.isoDate || item.pubDate || item.date);
